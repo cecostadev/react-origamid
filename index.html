@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React para Iniciantes</title>
+
+    <!-- Carrega o React, React Dom e Babel -->
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+  </head>
+
+  <body>
+    <div>
+        <h1> Loja Virtual</h1>
+        <hr>
+    </div>
+    <div id="app">
+
+    </div>
+  <!-- Precisa indicar para o Babel que ele deve transpilar o código -->
+    <script type="text/babel">
+
+        let final = 0;
+
+        const App = () => {
+            return (
+                <div>
+                    <div>
+                        <ProdutoUm />
+                        <Compras />
+                    </div>
+                </div>
+                
+            )
+        }
+
+        const ProdutoUm = () => {
+            const precoUm = 'R$ 9,99';
+            return <h4> Produto Um : {precoUm} </h4>
+        }
+
+
+        const Compras = () => {
+            function handleClick(event) {
+                console.log(event.target.innerText);
+            }
+
+            const [quant, setQuant] = React.useState(0);
+            const [preco, setPreco] = React.useState(0);
+            const base = 9;
+
+            function comprar() {
+                setQuant(quant + 1);
+                if(preco == 0) {
+                    setPreco(base *  (quant + 1));
+                } else {    
+                    setPreco(base * quant);
+
+                }
+            }
+        
+            return (
+                
+                <div>
+                    <button onClick={comprar}> Comprar </button>
+                    <p><b> Total: R$</b> {preco} em {quant} produtos comprados!</p>
+                </div>
+
+            )
+            
+            
+        }
+
+      // Renderiza o componente App no elemento que tiver id = app
+      ReactDOM.render(<App />, document.getElementById('app'));
+    </script>
+  </body>
+</html>
